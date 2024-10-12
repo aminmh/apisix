@@ -1,0 +1,38 @@
+services:
+  apisix:
+    image: apache/apisix:3.10.0-debian
+    container_name: ${APISIX_CONTAINER_NAME}
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - lets-shop
+    environment:
+      - APISIX_STAND_ALONE=true
+    volumes:
+      - ./config/routes.yaml:/usr/local/apisix/conf/apisix.yaml
+      - ./config/config.yaml:/usr/local/apisix/conf/config.yaml
+
+  policy-agent:
+    image: openpolicyagent/opa:latest
+    container_name: ${OPEN_POLICY_CONTAINER_NAME}
+    ports:
+      - 8081:8081
+    volumes:
+      - ./opa/bundles/:/.opa/bundles/rbac-bundle/
+      - ./opa/config.yaml:/config.yaml
+    command:
+      - "run"
+      - "--server"
+      - "--addr=0.0.0.0:8081"
+      - "--config-file=/config.yaml"
+    networks:
+      - lets-shop
+
+networks:
+  lets-shop:
+    driver: bridge
+    external: true
+volumes:
+  lets-shop:
+    driver: local

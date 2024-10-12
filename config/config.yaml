@@ -1,0 +1,19 @@
+deployment:
+  role: data_plane
+  role_data_plane:
+    config_provider: yaml
+
+apisix:
+  node_listen: 80
+  disable_sync_configuration_during_start: false
+  log:
+    level: debug
+  ssl:
+    ssl_protocols: TLSv1.2 TLSv1.3
+    enable: true
+    ssl_session_tickets: false
+    listen:
+      - enable_http3: false
+        port: 443
+    ssl_ciphers: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+#END

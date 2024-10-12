@@ -1,0 +1,9 @@
+services:
+  - name: rbac-bundle
+    url: http://lets-shop-user-service:9001
+
+bundles:
+  rbac-bundle:
+    service: rbac-bundle
+    resource: /api/users/policies
+    persist: true

@@ -1,0 +1,133 @@
+consumers:
+  - username: "amin"
+    plugins:
+      key-auth:
+        key: JWfX#o$Nt8NE8*bnc@6l8F8r2N#X7bDr
+      jwt-auth:
+        key: JWfX#oNt8NE8*bnc@6l8F8r2N#X7bDr
+        algorithm: "RS256"
+        public_key: "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6S7asUuzq5Q/3U9rbs+PkDVIdjgmtgWreG5qWPsC9xXZKiMV1AiV9LXyqQsAYpCqEDM3XbfmZqGb48yLhb/XqZaKgSYaC/h2DjM7lgrIQAp9902Rr8fUmLN2ivr5tnLxUUOnMOc2SQtr9dgzTONYW5Zu3PwyvAWk5D6ueIUhLtYzpcB+etoNdL3Ir2746KIy/VUsDwAM7dhrqSK8U2xFCGlau4ikOTtvzDownAMHMrfE7q1B6WZQDAQlBmxRQsyKln5DIsKv6xauNsHRgBAKctUxZG8M4QJIx3S6Aughd3RZC4Ca5Ae9fd8L8mlNYBCrQhOZ7dS0f4at4arlLcajtwIDAQAB\n-----END PUBLIC KEY-----"
+        private_key: "-----BEGIN PRIVATE KEY-----\nMIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDpLtqxS7OrlD/dT2tuz4+QNUh2OCa2Bat4bmpY+wL3FdkqIxXUCJX0tfKpCwBikKoQMzddt+ZmoZvjzIuFv9eploqBJhoL+HYOMzuWCshACn33TZGvx9SYs3aK+vm2cvFRQ6cw5zZJC2v12DNM41hblm7c/DK8BaTkPq54hSEu1jOlwH562g10vcivbvjoojL9VSwPAAzt2GupIrxTbEUIaVq7iKQ5O2/MOjCcAwcyt8TurUHpZlAMBCUGbFFCzIqWfkMiwq/rFq42wdGAEApy1TFkbwzhAkjHdLoC6CF3dFkLgJrkB7193wvyaU1gEKtCE5nt1LR/hq3hquUtxqO3AgMBAAECggEBANX6C+7EA/TADrbcCT7fMuNnMb5iGovPuiDCWc6bUIZCQ0yac45l7o1nZWzfzpOkIprJFNZoSgIF7NJmQeYTPCjAHwsSVraDYnn3Y4d1D3tM5XjJcpX2bs1NactxMTLOWUl0JnkGwtbWp1Qq+DBnMw6ghc09lKTbHQvhxSKNL/0UC+YmCYT5ODmxzLBwkzN5RhxQZNqol/4LYVdji9bS7N/UITw5E6LGDOo/hZHWqJsEfgrJTPsuCyrYlwrNkgmV2KpRrGz5MpcRM7XHgnqVym+HyD/r9E7MEFdTLEaiiHcmIsh1usJDEJMFIWkF+rnEoJkQHbqiKlQBcoqSbCmoMWECgYEA/4379mMPF0JJ/EER4VH7/ZYxjdyphenx2VYCWY/uzT0KbCWQF8KXckuoFrHAIP3EuFn6JNoIbja0NbhIHGrU29BZkATG8h/xjFy/zPBauxTQmM+yS2T37XtMoXNZNS/ubz2lJXMOapQQiXVRl/tzzpyWaCe9j0NT7DAU0ZFmDbECgYEA6ZbjkcOs2jwHsOwwfamFm4VpUFxYtED79vKzq5d7+Ii1kPKHj5fDnYkZd+mNwNZ02O6OGxh40EDML+i6nOABPg/FmXeVCya9Vump2Yqr2fAK3xm6QY5KxAjWWq2kVqmdRmICSL2Z9rBzpXmD5o06y9viOwd2bhBo0wB02416GecCgYEA+S/ZoEa3UFazDeXlKXBn5r2tVEb2hj24NdRINkzC7h23K/z0pDZ6tlhPbtGkJodMavZRk92GmvF8h2VJ62vAYxamPmhqFW5Qei12WL+FuSZywI7Fq/6oQkkYT9XKBrLWLGJPxlSKmiIGfgKHrUrjgXPutWEK1ccw7f10T2UXvgECgYEAnXqLa58G7o4gBUgGnQFnwOSdjn7jkoppFCClvp4/BtxrxA+uEsGXMKLYV75OQd6TIhkaFuxVrtiwj/APt2lRjRym9ALpqX3xkiGvz6ismR46xhQbPM0IXMc0dCeyrnZlQKkcrxucK/Lj1IBqy0kVhZB1IaSzVBqeAPrCza3AzqsCgYEAvSiEjDvGLIlqoSvKMHEVe8PBGOZYLcAdq4YiOIBgddoYyRsq5bzHtTQFgYQVK99Cnxo+PQAvzGb+dpjN/LIEAS2LuuWHGtOrZlwef8ZpCQgrtmp/phXfVi6llcZx4mMm7zYmGhh2AsA9yEQcacgc4kgDThAjD7VlXad9UHpNMO8=\n-----END PRIVATE KEY-----"
+
+routes:
+  - uri: /auth/jwt-token/generate
+    plugins:
+      public-api: {
+        uri: "/apisix/plugin/jwt/sign"
+      }
+
+  - uri: /api/auth/sign-up
+    hosts: [ 'admin.localhost' ]
+    methods:
+      - POST
+    upstream:
+      nodes:
+        "lets-shop-user-service:9001": 1
+      type: roundrobin
+
+  - uri: /api/auth/sign-up
+    hosts: [ 'dealer.localhost' ]
+    methods:
+      - POST
+    upstream:
+      nodes:
+        "lets-shop-user-service:9001": 1
+      type: roundrobin
+
+  - uri: /api/users/*
+    methods:
+      - POST
+    upstream:
+      nodes:
+        "lets-shop-user-service:9001": 1
+      type: roundrobin
+
+  - uri: /api/users/*
+    plugins:
+      opa:
+        host: "http://lets-shop-open-policy-agent:8081"
+        policy: "rbac/policy"
+    upstream:
+      nodes:
+        "lets-shop-user-service:9001": 1
+      type: roundrobin
+
+  - uri: /api/rbac/*
+    methods:
+      - POST
+      - PUT
+      - DELETE
+    upstream:
+      nodes:
+        "lets-shop-user-service:9001": 1
+      type: roundrobin
+
+  - uri: /api/products/*
+    upstream:
+      nodes:
+        "lets-shop-product-service:3000": 1
+      type: roundrobin
+
+ssls:
+  - cert: |
+      -----BEGIN CERTIFICATE-----
+      MIIEcjCCAtqgAwIBAgIRAOOwy0W15Sub0CQqXgdFNmQwDQYJKoZIhvcNAQELBQAw
+      gYUxHjAcBgNVBAoTFW1rY2VydCBkZXZlbG9wbWVudCBDQTEtMCsGA1UECwwkYW1p
+      bkBhbWluLVN5c3RlbS1Qcm9kdWN0LU5hbWUgKEFtaW4pMTQwMgYDVQQDDCtta2Nl
+      cnQgYW1pbkBhbWluLVN5c3RlbS1Qcm9kdWN0LU5hbWUgKEFtaW4pMB4XDTI0MTAw
+      NzE2MzE1NloXDTI3MDEwNzE2MzE1NlowWDEnMCUGA1UEChMebWtjZXJ0IGRldmVs
+      b3BtZW50IGNlcnRpZmljYXRlMS0wKwYDVQQLDCRhbWluQGFtaW4tU3lzdGVtLVBy
+      b2R1Y3QtTmFtZSAoQW1pbikwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+      AQC2X0vui9uXiak32lRKyzDFl9ZClaRIg/KKkLU8R0R0VtlMoTxSMv77RcOay2ni
+      cxuHF7JdZ4KcI6QeYUVVxqHcoR4bzFei7kPQEZJAeCzadK+dBCXSAICJ19dmWKqs
+      j6w+hGt2PzHpvGk8hot5Pw54o0OQ7a15ENMj2/X5+wT/v4PoLElsK5eOGvuyWTRL
+      Tyr48D86nJp2P8YdiC4P8eW8ifEvAwNCalV8DI47cDDdPq/9rYKpIbMyMdd0CEo2
+      WExtx+5iv0XjGzrjROkuhyvVzIjTlgge5u9PHW6X+tnc4VvLn01f2xChtwVATJRQ
+      FsvvnhAsL9o8SYC6m/IuaQajAgMBAAGjgYgwgYUwDgYDVR0PAQH/BAQDAgWgMBMG
+      A1UdJQQMMAoGCCsGAQUFBwMBMB8GA1UdIwQYMBaAFJCDOVEPr6bJQJY9dUFNQKGJ
+      F6yYMD0GA1UdEQQ2MDSCCWxvY2FsaG9zdIIPYWRtaW4ubG9jYWxob3N0ghBkZWFs
+      ZXIubG9jYWxob3N0hwR/AAABMA0GCSqGSIb3DQEBCwUAA4IBgQCjoBBJNzaMGmmS
+      KPV0HcXCgEey3J9Fbi2T4jj9SKKS1P2+LUX/YNPdIvPP4JzF3ZOv93dPkRJLmP/T
+      cmKcCZTQzgfAAJcvklQre8u9mIn93QFx7aGhdxh/jcGXsUIdnjW7bgCj/3eTOua9
+      E1QrKSQNd06kxBxoolCzf9rZB8oCepHKJZrXWWqJSG2v5IVLHnW9JqPp991btXCQ
+      vIp3H4LhJRYEOWz6zAbw71NqQzdEWJBKoh8bmxGd3j77OU/T7aJ/3UEUH3BgMK1l
+      BzpwPcnpzMUTjPA8YjmKff45MOqSlaCLIfE0F64x9aOdjSHFnWW0nUViM4mR4OPy
+      d0424NMFzT6lWDlKz8TTPP81/Q7Kx87uvlIgOwHoH2eAf1sJaFq+w1cp6n+2hdLm
+      n0ghv6t1laWIT1sjT2ckfMJtJ/uIQFxIDdoYuIppt3mdQaySCy4nVe+LDs8YKN2r
+      oDgZf3CPqG1GHjgJxHbTzDMAV4xO4u3RfgEERwIdsbcELsPrsoY=
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2X0vui9uXiak3
+      2lRKyzDFl9ZClaRIg/KKkLU8R0R0VtlMoTxSMv77RcOay2nicxuHF7JdZ4KcI6Qe
+      YUVVxqHcoR4bzFei7kPQEZJAeCzadK+dBCXSAICJ19dmWKqsj6w+hGt2PzHpvGk8
+      hot5Pw54o0OQ7a15ENMj2/X5+wT/v4PoLElsK5eOGvuyWTRLTyr48D86nJp2P8Yd
+      iC4P8eW8ifEvAwNCalV8DI47cDDdPq/9rYKpIbMyMdd0CEo2WExtx+5iv0XjGzrj
+      ROkuhyvVzIjTlgge5u9PHW6X+tnc4VvLn01f2xChtwVATJRQFsvvnhAsL9o8SYC6
+      m/IuaQajAgMBAAECggEAcNy88x3eggORk50sOTVSM5Zp5L8S8kWmHha78lfwh0cQ
+      J5pI6F3i6sIb8XodRyURTiNeIOvkKpjsAlkUPac1mIKlTXLCcXSexu944Sj+KRu5
+      aqSce0AQTD4lcZNB3JT1daMhlgY573rIbcqeGiTp4cK4F8LfbmL5J+ICcffk+hgS
+      CVhOMKLDpmNrPViiYsiPDDtgWe6bUkEw1oH45DZty1gWwcBzn5iQ9PNIncqWEYcy
+      GQ1qkEgqD9qRDqpF5AQKaRrNE5K6zxJ9O0LTWlZBSnIBXXB12thYukOpaDdue4sV
+      fyR7yyJFk961EvniutcQV7z3TB812vKNkCrlJrSZ8QKBgQDRXwFhIYGN4j5Q6G5z
+      oqU/L2KdwTSErQFqN8lOGQ76uJKajjBcndFN92B7+kfpy7KCZ2fgo+4hSuiBJMk8
+      /1IFLciCcWAVIcTHibyVnreqobvwPuQWxxKHzdwQa/NzQgWlxC5osx7igW/1JyKC
+      L2oM7w3IxsBz+zQMHYcabzTYvwKBgQDe/P1dAZqL5GXNiZla+h6q+96STf/kZV9q
+      AA+yZBZffCi1tmB4xHWT9k+an6o0IclbGDZ8lGo6r1IeHOGUrh5pmuHUgRVgSRMD
+      Bh0LbyE4tmk3i2E3pmMOmoNn0UH/G6mgIAuK7xLAGGYCvoTJuZobE2pZpL2kefbq
+      Q4ZMSxDHHQKBgQDP1nDHG/zAfQOBS4pBbgZ996r8kQtyXU9XQrOpvERbbRfTJy0o
+      810P+W6lA6mZk6TLwJykqfa8w+CUOpEt5QJls7IkkylfMNtnfPpgyGLolo67CaNg
+      XROvDhLTlmXgV3zFtj6fnpgdH4KlKMkf1LOAzVmwomPvfkGHeVRhUF10fwKBgQDY
+      xZwQNCTnZatJukAo3wm9MojWNZlTkPDGfTTFOOM/A9YXgCocfO/IXSRZrmmpsEas
+      lccyKJ10W0c7Gtx4yyOpifWLvcjoB2HCCMlneisTlNCIPKjPjqKxaafg3t6Hf37Q
+      uRY/g9X4hD9233r7F8EmHSO/7ZSmNiLA7c+6jybKSQKBgD78hd8jVmramA3xEMHL
+      UCvxmX0pXeMGzNXN5tyfsxNB1x+I1UDn5P0M9NwbJz3Xc1M0o8ANaYcV8yWPrfOa
+      SCIxsSQAn9ARpwbT9+PxlWXRoTITF8EfmwZymNIAMPAw6GmcTXR2gR0QRhWfhIxM
+      2iQkOxbuPUGPE9TSvhsVQlh5
+      -----END PRIVATE KEY-----
+    snis:
+      - localhost
+      - admin.localhost
+      - dealer.localhost
+
+#END
